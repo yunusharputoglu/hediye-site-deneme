@@ -1,1 +1,108 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana Özel Bir Sürpriz ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); font-family: 'Poppins', sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; color: #333; }
+        .card { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); text-align: center; max-width: 450px; width: 100%; transition: all 0.3s ease; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ff4757; margin-bottom: 10px; }
+        p { font-size: 0.95rem; color: #555; margin-bottom: 20px; line-height: 1.5; }
+        
+        /* Şifre Ekranı */
+        .lock-screen input { width: 80%; padding: 12px; border: 2px solid #ff758c; border-radius: 10px; text-align: center; font-size: 1.1rem; outline: none; margin-bottom: 15px; }
+        .btn { background: #ff4757; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .btn:hover { background: #e84118; transform: scale(1.05); }
+
+        /* Ana İçerik (Başta Gizli) */
+        .content { display: none; }
+        .photo-frame { width: 100%; height: 280px; border-radius: 15px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .timer { font-size: 1.1rem; font-weight: 600; color: #ff4757; background: #ffeaa7; padding: 12px; border-radius: 10px; margin-bottom: 20px; }
+        
+        /* İnteraktif Butonlar */
+        .question-box { margin-top: 20px; }
+        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 15px; position: relative; }
+        #no-btn { background: #718093; position: relative; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- 1. ADIM: ŞİFRE / KİLİT EKRANI -->
+        <div id="lock-screen" class="lock-screen">
+            <h1>Hoş Geldin Sevgilim ❤️</h1>
+            <p>Sana özel hazırladığım sürprizi açmak için tanıştığımız yılı yaz bakalım:</p>
+            <input type="text" id="pass-input" placeholder="Örn: 2024">
+            <br>
+            <button class="btn" onclick="checkPassword()">Sürprizi Aç ✨</button>
+            <p id="error-msg" style="color: red; margin-top: 10px; display: none;">Hatalı şifre! Tekrar dene bakalım 😜</p>
+        </div>
+
+        <!-- 2. ADIM: GİZLİ SÜRPRİZ İÇERİĞİ -->
+        <div id="main-content" class="content">
+            <h1>İyi Ki Varsın! 🌹</h1>
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500" class="photo-frame" alt="Bizim Fotoğrafımız">
+            
+            <p>Hayatımın en güzel kararı seninle bu yola çıkmaktı...</p>
+            
+            <div class="timer" id="timer">Birlikte 0 Gün Geçti ❤️</div>
+
+            <div class="question-box">
+                <h3>Beni ne kadar çok seviyorsun? 🥰</h3>
+                <div class="btn-group">
+                    <button class="btn" onclick="alert('Ben de seni sonsuza kadar çok seviyorum! ❤️')">Dünyalar Kadar! 😍</button>
+                    <button class="btn" id="no-btn" onmouseover="moveButton()">Hiç Sevmiyorum 😜</button>
+                </div>
+            </div>
+
+            <!-- Arka Plan Müziği -->
+            <audio id="bg-music" loop>
+                <source src="https://raw.githubusercontent.com/yunusharputoglu/6-ekim/main/Azer-Bulbul-Ben-Seninle-Mutluyum.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // Şifre Kontrolü (Örnek Şifre: 2024)
+        function checkPassword() {
+            const pass = document.getElementById('pass-input').value;
+            if(pass === "2024") { // Müşteriye göre değiştirilir
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                
+                // Müziği Başlat
+                const audio = document.getElementById('bg-music');
+                audio.play();
+
+                // Sayacı Başlat
+                startTimer();
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        // Kaçan "Hayır" Butonu Efekti
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2 - 50);
+            const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Sayaç Logic
+        function startTimer() {
+            const startDate = new Date('2024-10-06'); // Müşterinin tarihi
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('timer').innerText = `Birlikte ${days} Gün Geçti ❤️`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
